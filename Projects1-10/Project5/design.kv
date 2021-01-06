@@ -1,0 +1,156 @@
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 50,50
+            spacing: 20,20
+            Label: 
+                text: "User Login"
+                font_size: "20sp"
+
+            TextInput:
+                id: uname
+                hint_text: "Username"
+                size_hint: 0.3,0.7
+            TextInput:
+                id: pword
+                password: True
+                hint_text: "Password"
+                size_hint: 0.3,0.7
+
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.check_user(root.ids.uname.text, root.ids.pword.text)
+
+                    pos_hint: {"center_x": 0.5, "center_y": 0.35}
+            Label: 
+                id: log_in_wrong
+                text: ""
+
+        GridLayout:
+            cols: 2
+            size_hint: 0.2,0.2
+            padding: 20,20
+            spacing: 10, 0
+            Button:
+                text: "Forgot password?"
+                on_press: root.forgot_password()
+                background_color: 1,1,1,0
+                opactiy: 1 if self.state == "normal" else 0.5
+                color: 0.2,0.3,0.8,1
+                
+            Button:
+                text: "Sign up"
+                on_press: root.sign_up()
+                background_color: 1,1,1,0
+                opactiy: 1 if self.state == "normal" else 0.5
+                color: 0.2,0.3,0.8,1
+
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            padding: 100,100
+            spacing: 100,100
+            Label:
+                text: "Welcome to an adventure!"
+            TextInput:
+                id: username
+                hint_text: "New Username"
+                size_hint: 0.3, 0.7
+            TextInput:
+                id: password
+                hint_text: "New Password"
+                size_hint: 0.3, 0.7
+        GridLayout:
+            cols: 2
+            size_hint: 0.3, 0.3
+            padding: 30,30
+            spacing: 20,20
+            Button:
+                text: "Submit"
+                on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+            Button:
+                text: "Go Back"
+                on_press: root.go_back()
+
+
+<ForgotPasswordScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            Label:
+                text: "Please enter your username"
+            TextInput:
+                id: username
+                hint_text: "username"
+            Label:
+                id: newpassword
+                text: ""
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Get password"
+                on_press: root.display_password(root.ids.username.text)
+            Button:
+                text: "Go Back"
+                on_press: root.go_back()
+<SubmitScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "You have successfully created a profile!"
+        GridLayout:
+            cols: 1
+            Button: 
+                text: "Take me back to the homepage"
+                on_press: root.go_back()
+            
+
+
+<LoginScreenSuccess>:
+    GridLayout:
+        cols: 1
+        padding: 20,20
+        spacing:20,20   
+        RelativeLayout:
+            ImageButton:
+                on_press: root.log_out()
+                source: "logout_hover.png" if self.hovered else "logout_nothover.png"
+                size_hint: 0.25, 0.25
+                pos_hint: {"center_x": 0.93, "center_y":0.5}
+        Label:
+            text: "Describe how you feel"
+        TextInput:
+            id: input
+            text_hint: 'Try "Happy", "Sad", "Unloved"'
+        Button: 
+            text: "Enlighten me!"
+            on_press: root.display_quote(root.ids.input.text)
+        ScrollView:
+            
+            Label:
+                id: quote
+                text: ""
+                text_size: 0.8*self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen: 
+        name: "sign_up_screen"
+    SubmitScreen:
+        name: "submit_screen"
+    LoginScreenSuccess:
+        name: "login_screen_success"
+    ForgotPasswordScreen:
+        name: "forgot_password_screen"
